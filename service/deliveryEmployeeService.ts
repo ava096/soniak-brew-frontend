@@ -12,6 +12,18 @@ export default class DeliveryEmployeeService {
             throw new Error("Unable to retrieve employees, " + e)
         }
     }
+
+
+    async deleteDeliveryEmployee(employeeID: number): Promise<void> {
+
+        try {
+            await axios.delete(`http://localhost:8080/api/deliveryEmployees/${employeeID}`);
+        } catch (error) {
+            throw new Error("Failed to delete employee");
+        }
+
+    }
+}
 }
 
 module.exports.getDeliveryEmployeeById = async function (id: number): Promise<DeliveryEmployee>{
@@ -23,5 +35,3 @@ module.exports.getDeliveryEmployeeById = async function (id: number): Promise<De
         throw new Error('ERROR: Could not get Delivery Employee')
     }
 }
-
-
