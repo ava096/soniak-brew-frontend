@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 import { DeliveryEmployee } from "../model/deliveryEmployee";
 import DeliveryEmployeeService from "../service/deliveryEmployeeService";
+import { DeliveryEmployeeRequest } from "../model/deliveryEmployeeRequest";
  
 const deliveryEmployeeService = require('../service/deliveryEmployeeService')
 
@@ -19,6 +20,25 @@ module.exports = function(app: Application) {
         }
  
         res.render('test-delivery-employee', { employees } )
+    });
+
+app.get("/add-delivery-employee", async (req: Request, res: Response) => {
+    res.render('add-delivery-employee');
+});
+
+    app.post("/add-delivery-employee", async (req: Request, res: Response) => {
+        let data: DeliveryEmployeeRequest = req.body; 
+        let id: number 
+        
+        try {
+            id = await employeeservice.createDeliveryEmployee(data);
+            return res.redirect('deliveryEmployees/' + id)
+        } catch (error) {
+            console.error(error);
+            res.locals.errorMessage = error.message;
+        }
+ 
+        return res.render('add-delivery-employee')
     })
 
 
