@@ -42,7 +42,7 @@ app.get("/add-delivery-employee", async (req: Request, res: Response) => {
     })
 
 
-    app.get('/deliveryEmployees/:id', async (req: Request, res: Response) =>{
+    app.get('/employees/delivery/:id', async (req: Request, res: Response) =>{
         let data = DeliveryEmployee;
 
         try {
