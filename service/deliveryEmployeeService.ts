@@ -13,3 +13,15 @@ export default class DeliveryEmployeeService {
         }
     }
 }
+
+module.exports.getDeliveryEmployeeById = async function (id: number): Promise<DeliveryEmployee>{
+    try {
+        const response = await axios.get('http://localhost:8080/api/deliveryEmployees/'+ id)
+        console.log(response);
+        return response.data
+    } catch (e) {
+        throw new Error('ERROR: Could not get Delivery Employee')
+    }
+}
+
+
