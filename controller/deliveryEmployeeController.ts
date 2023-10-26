@@ -17,5 +17,23 @@ module.exports = function(app: Application) {
         }
  
         res.render('test-delivery-employee', { employees } )
+    });
+
+app.get("/add-delivery-employee", async (req: Request, res: Response) => {
+    res.render('add-delivery-employee');
+});
+
+    app.post("/add-delivery-employee", async (req: Request, res: Response) => {
+        let data: DeliveryEmployee = req.body; 
+        let id: number 
+        
+        try {
+            id = await employeeservice.createDeliveryEmployee(data);
+            return res.redirect('deliveryEmployees/' + id)
+        } catch (error) {
+            console.error(error);
+        }
+ 
+        return res.render('add-delivery-employee')
     })
 }
