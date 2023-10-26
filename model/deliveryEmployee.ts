@@ -3,7 +3,5 @@ export class DeliveryEmployee {
     name?: string
     salary?: number
     bank_account_number?: string
-    salary?: number
-    bank_account_number?: string 
     national_insurane_number?: string
 }

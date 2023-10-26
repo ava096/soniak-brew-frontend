@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 import { DeliveryEmployee } from "../model/deliveryEmployee";
 import DeliveryEmployeeService from "../service/deliveryEmployeeService";
+import { DeliveryEmployeeRequest } from "../model/deliveryEmployeeRequest";
  
 module.exports = function(app: Application) {
     
@@ -24,7 +25,7 @@ app.get("/add-delivery-employee", async (req: Request, res: Response) => {
 });
 
     app.post("/add-delivery-employee", async (req: Request, res: Response) => {
-        let data: DeliveryEmployee = req.body; 
+        let data: DeliveryEmployeeRequest = req.body; 
         let id: number 
         
         try {
@@ -32,6 +33,7 @@ app.get("/add-delivery-employee", async (req: Request, res: Response) => {
             return res.redirect('deliveryEmployees/' + id)
         } catch (error) {
             console.error(error);
+            res.locals.errorMessage = error.message;
         }
  
         return res.render('add-delivery-employee')
