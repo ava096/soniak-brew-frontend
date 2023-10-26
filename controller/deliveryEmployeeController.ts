@@ -36,4 +36,18 @@ app.get("/add-delivery-employee", async (req: Request, res: Response) => {
  
         return res.render('add-delivery-employee')
     })
+
+    app.get("/employees/delivery", async (req: Request, res: Response) => {
+
+        let employees: DeliveryEmployee[] = [];
+ 
+        try { 
+            employees = await employeeservice.getAllDeliveryEmployees();
+        } catch (error) {
+            console.error(error);
+        }
+ 
+        res.render('view-all-delivery-employees', { employees } )
+
+    })
 }
