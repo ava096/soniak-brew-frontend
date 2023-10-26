@@ -32,4 +32,36 @@ module.exports = function(app: Application) {
         res.render('view-all-delivery-employees', { employees } )
 
     })
+
+    app.get("/delete-delivery-employee", async (req: Request, res: Response) => {
+
+        let employees: DeliveryEmployee[] = [];
+ 
+        try { 
+            employees = await employeeservice.getAllDeliveryEmployees();
+        } catch (error) {
+            console.error(error);
+        }
+ 
+        res.render('delete-delivery-employee', { employees })
+
+    })
+
+    app.post("/delete-delivery-employee", async (req: Request, res: Response) => {
+
+        // Get the employee ID from the form
+        const employeeID = req.body.employeeID;
+
+        try {
+            await employeeservice.deleteDeliveryEmployee(employeeID);
+            return res.redirect("/employees/delivery");
+        } catch (error) {
+            console.error(error);
+
+            res.locals.errorMessage = error.message;
+            
+            return res.render('delete-delivery-employee', await employeeservice.getAllDeliveryEmployees());
+        }
+
+    })
 }
