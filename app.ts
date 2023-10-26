@@ -17,8 +17,9 @@ nunjucks.configure(appViews, nunjucksConfig);
 
 // Configure express.
 app.set('view engine', 'html');
-
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.use(express.json())
 

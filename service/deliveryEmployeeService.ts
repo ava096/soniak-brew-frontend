@@ -16,6 +16,7 @@ export default class DeliveryEmployeeService {
         }
     }
 
+
 async createDeliveryEmployee(employee: DeliveryEmployeeRequest): Promise<number> {
         const error: string = validateDeliveryEmployee(employee);     
         console.log("validation error: ", error);
@@ -31,3 +32,27 @@ async createDeliveryEmployee(employee: DeliveryEmployeeRequest): Promise<number>
         }
     }
 }
+
+
+    async deleteDeliveryEmployee(employeeID: number): Promise<void> {
+
+        try {
+            await axios.delete(`http://localhost:8080/api/deliveryEmployees/${employeeID}`);
+        } catch (error) {
+            throw new Error("Failed to delete employee");
+        }
+
+    }
+}
+
+
+module.exports.getDeliveryEmployeeById = async function (id: number): Promise<DeliveryEmployee>{
+    try {
+        const response = await axios.get('http://localhost:8080/api/deliveryEmployees/'+ id)
+        console.log(response);
+        return response.data
+    } catch (e) {
+        throw new Error('ERROR: Could not get Delivery Employee')
+    }
+}
+
